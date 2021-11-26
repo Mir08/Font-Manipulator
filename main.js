@@ -1,3 +1,9 @@
+noseX=0;
+noseY=0;
+rightWristX=0;
+leftWristX=0;
+difference=0;
+
 function setup()
 {
     video = createCapture(VIDEO);
@@ -17,7 +23,12 @@ function modelLoaded()
 
 function draw ()
 {
+    document.getElementById("word_size").innerHTML = "Width and Height of the word is " + difference + "px";
     background('black');
+    fill('white');
+    stroke('grey');
+    text(noseX, noseY, difference);
+    text("Riyadh");
 }
 
 function gotPoses(results)
@@ -25,5 +36,9 @@ function gotPoses(results)
     if(results.length > 0)
     {
         console.log(results);
+        leftWristX = results[0].pose.leftWrist.x;
+        rightWristX = results[0].pose.rightWrist.x;
+        difference = floor(leftWristX - rightWristX);
+        console.log("leftWristX =" + leftWristX + "rightWristX =" + rightWristX + "difference = " + difference);
     }
 }
